@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hik.seckill.dao.OrderMapper">
+    <select id="getMiaoshaOrderByUserIdGoodsId" resultType="com.hik.seckill.domain.MiaoshaOrder">
+        select * from miaosha_order
+        where user_id=#{userNickName} and goods_id=#{goodsId}
+    </select>
+    <insert id="insertMiaoshaOrder">
+        insert into miaosha_order
+        (user_id, goods_id, order_id) values
+        (#{userId}, #{goodsId}, #{orderId})
+    </insert>
+    <select id="getOrderById" resultType="com.hik.seckill.domain.OrderInfo">
+        select * from order_info
+        where id = #{orderId}
+    </select>
+    <select id="selectOrderStatusByCreateTime" resultType="com.hik.seckill.domain.OrderInfo">
+        select * from order_info
+        where status=#{status} and create_Date <![CDATA[ <= ]]> #{createDate}
+    </select>
+    <select id="closeOrderByOrderInfo">
+        update order_info
+        set status=0
+        where id=#{id}
+    </select>
+</mapper>
